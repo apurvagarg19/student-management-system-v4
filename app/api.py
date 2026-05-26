@@ -89,13 +89,18 @@ async def global_exception_handler(
     request,
     exc
 ):
+    import traceback
 
     logger.exception(str(exc))
+    
+    print("\n=====BACKEND ERROR=====")
+    traceback.print_exc()
+    print("=======================\n")
 
     return JSONResponse(
         status_code=500,
         content=error_response(
-            message="Internal server error"
+            message=str(exc)
         )
     )
 
@@ -257,22 +262,7 @@ def get_students(
     )
 
 
-@app.get(
-    "/students/{student_id}",
-    tags=["Students"],
-    response_model=APIResponse
-)
-def get_student(
-    student_id: str,
-    service: StudentService = Depends(get_service)
-):
 
-    student = service.get_student(student_id)
-
-    return success_response(
-        data=service.format_student(student),
-        message="Student fetched successfully"
-    )
 
 
 # ---------------- UPDATE ----------------
@@ -399,6 +389,23 @@ def subject_analysis(
     return success_response(
         data=service.get_subject_analysis(),
         message="Subject analysis fetched successfully"
+    )
+    
+@app.get(
+    "/students/{student_id}",
+    tags=["Students"],
+    response_model=APIResponse
+)
+def get_student(
+    student_id: str,
+    service: StudentService = Depends(get_service)
+):
+
+    student = service.get_student(student_id)
+
+    return success_response(
+        data=service.format_student(student),
+        message="Student fetched successfully"
     )
     
 @app.get(

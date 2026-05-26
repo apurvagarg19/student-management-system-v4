@@ -106,6 +106,7 @@ class StudentService:
         name: str,
         marks: Dict[str, float]
     ):
+        student_id = student_id.upper()
 
         existing_student = (
             self.db.query(Student)
@@ -197,6 +198,8 @@ class StudentService:
     # ---------------- READ ----------------
 
     def get_student(self, student_id: str):
+        
+        student_id = student_id.upper()
 
         student = (
             self.db.query(Student)
@@ -283,6 +286,7 @@ class StudentService:
         student_id: str,
         data: UpdateMarksSchema
     ):
+        student_id = student_id.upper()
 
         student = self.get_student(student_id)
 
@@ -382,6 +386,8 @@ class StudentService:
     # ---------------- DELETE ----------------
 
     def delete_student(self, student_id: str):
+        
+        student_id = student_id.upper()
 
         student = self.get_student(student_id)
 
@@ -536,34 +542,42 @@ class StudentService:
             }
 
         grades = {
-            g: 0
-            for g in ["A", "B", "C", "D", "F"]
+            "A": 0,
+            "B": 0,
+            "C": 0,
+            "D": 0,
+            "F": 0
         }
 
         for student in students:
-            grades[student.grade] += 1
+            grade = str(student.grade).upper()
+            if grade not in grades:
+                grades[grade] = 0   
+            grades[grade] += 1
 
         passed = sum(
             1
             for s in students
-            if s.grade != "F"
+            if str(s.grade).upper() != "F"
         )
 
         topper = max(
             students,
-            key=lambda s: s.percentage
+            key=lambda s: s.percentage,
+            default=None
         )
+        
 
         return {
             "total_students": len(students),
-            "pass_percentage": (
-                passed / len(students)
-            ) * 100,
-            "grades": grades,
-            "average_percentage": (
-                self.get_average_percentage()
+            "pass_percentage": round(
+                (passed / len(students)) * 100, 2
             ),
-            "topper": topper.name
+            "grades": grades,
+            "average_percentage": round(
+                self.get_average_percentage(), 2
+            ),
+            "topper": topper.name if topper else None
         }
 
     # ---------------- RESPONSE FORMAT ----------------
@@ -574,7 +588,7 @@ class StudentService:
             "student_id": student.student_id,
             "name": student.name,
             "total_marks": student.total_marks,
-            "percentage": student.percentage,
+            "percentage": round(student.percentage, 2),
             "grade": student.grade,
             "version": student.version,
             "marks": [
