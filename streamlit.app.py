@@ -21,26 +21,22 @@ st.markdown("""
 <style>
 
 section[data-testid="stSidebar"] h1 {
-    font-size: 38px !important;
-    font-weight: 800 !important;
+    font-size: 26px !important;
+    font-weight: 700 !important;
 }
 
 section[data-testid="stSidebar"] label,
 section[data-testid="stSidebar"] .stRadio label,
 section[data-testid="stSidebar"] p {
-    font-size: 24px !important;
-    font-weight: 600 !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
 }
 
 .title {
-    font-size: 58px !important;
+    font-size: 42px !important;
     font-weight: 800 !important;
     color: #111827;
     margin-bottom: 1rem;
-}
-
-html, body, [class*="css"]  {
-    font-size: 20px !important;
 }
 
 .main {
