@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, field_validator, ConfigDict
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Any
 
 
 # ---------------- BASE SCHEMA ----------------
@@ -29,13 +29,19 @@ class BaseMarksSchema(BaseModel):
 # ---------------- REQUEST SCHEMAS ----------------
 
 class StudentCreateSchema(BaseMarksSchema):
-    student_id: str = Field(..., min_length=1, json_schema_extra={"example": "S101"})
+    student_id: str = Field(..., min_length=1,max_length=20, json_schema_extra={"example": "S101"})
     name: str = Field(..., min_length=2, max_length=50, json_schema_extra={"example": "Apurva"})
 
 
 class UpdateMarksSchema(BaseModel):
     name: Optional[str] = Field(None, min_length=2, max_length=50)
     marks: Optional[Dict[str, float]] = None
+    
+    #concurrency control field
+    version: Optional[int] = Field(
+        None,
+        ge=1
+    )
 
     @field_validator("marks")
     def validate_marks(cls, marks):
@@ -68,16 +74,26 @@ class StudentResponseSchema(BaseModel):
     total_marks: float
     percentage: float
     grade: str
+    
+    version: int
+    
     marks: List[SubjectMarks]
 
     model_config = ConfigDict(
         from_attributes=True
     )
+    
+#------------------------STANDARD API RESPONSE------------------------
+
+class APIResponse(BaseModel):
+    success: bool = True
+    message: str = "Operation successful"
+    data: Optional[Any] = None
 
 
-# ---------------- COMMON RESPONSE ----------------
+# ---------------- ERROR RESPONSE ----------------
 
-class MessageResponse(BaseModel):
-    message: str = Field(
-        json_schema_extra={"example": "Student added successfully"}
-    )
+class ErrorResponse(BaseModel):
+    success: bool = False
+    message: str
+    data: Optional[Any] = None

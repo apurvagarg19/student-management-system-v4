@@ -1,0 +1,423 @@
+2026-05-16 16:25:23,074 - INFO - Request Started | Method=GET Path=/docs
+2026-05-16 16:25:23,076 - INFO - Request Completed | Method=GET Path=/docs Status=200 Time=0.0022s
+2026-05-16 16:25:23,756 - INFO - Request Started | Method=GET Path=/openapi.json
+2026-05-16 16:25:23,787 - INFO - Request Completed | Method=GET Path=/openapi.json Status=200 Time=0.0311s
+2026-05-19 17:47:16,529 - INFO - Request Started | Method=GET Path=/docs
+2026-05-19 17:47:16,531 - INFO - Request Completed | Method=GET Path=/docs Status=200 Time=0.0014s
+2026-05-19 17:47:17,140 - INFO - Request Started | Method=GET Path=/openapi.json
+2026-05-19 17:47:17,162 - INFO - Request Completed | Method=GET Path=/openapi.json Status=200 Time=0.0227s
+2026-05-19 17:50:19,942 - INFO - Request Started | Method=POST Path=/ai/chat
+2026-05-19 17:50:22,732 - INFO - Request Completed | Method=POST Path=/ai/chat Status=200 Time=2.7916s
+2026-05-19 17:54:28,621 - INFO - Request Started | Method=GET Path=/docs
+2026-05-19 17:54:28,622 - INFO - Request Completed | Method=GET Path=/docs Status=200 Time=0.0014s
+2026-05-19 17:54:28,830 - INFO - Request Started | Method=GET Path=/openapi.json
+2026-05-19 17:54:28,849 - INFO - Request Completed | Method=GET Path=/openapi.json Status=200 Time=0.0185s
+2026-05-19 17:55:27,125 - INFO - Request Started | Method=POST Path=/ai/chat
+2026-05-19 17:55:27,200 - ERROR - Request Failed | Method=POST Path=/ai/chat Time=0.0743s Error=(sqlite3.OperationalError) no such column: students.version
+[SQL: SELECT students.student_id AS students_student_id, students.name AS students_name, students.total_marks AS students_total_marks, students.percentage AS students_percentage, students.grade AS students_grade, students.version AS students_version 
+FROM students]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: students.version
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\middleware\logging_middleware.py", line 24, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\app\api.py", line 421, in chat_with_ai
+    students = service.get_all_students()
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\services\student_service.py", line 220, in get_all_students
+    .all()
+     ~~~^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: students.version
+[SQL: SELECT students.student_id AS students_student_id, students.name AS students_name, students.total_marks AS students_total_marks, students.percentage AS students_percentage, students.grade AS students_grade, students.version AS students_version 
+FROM students]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-19 17:55:27,447 - ERROR - (sqlite3.OperationalError) no such column: students.version
+[SQL: SELECT students.student_id AS students_student_id, students.name AS students_name, students.total_marks AS students_total_marks, students.percentage AS students_percentage, students.grade AS students_grade, students.version AS students_version 
+FROM students]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: students.version
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+                                   ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_utils.py", line 87, in collapse_excgroups
+    raise exc
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\middleware\rate_limit.py", line 52, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+                                   ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_utils.py", line 87, in collapse_excgroups
+    raise exc
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\middleware\logging_middleware.py", line 24, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\app\api.py", line 421, in chat_with_ai
+    students = service.get_all_students()
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\services\student_service.py", line 220, in get_all_students
+    .all()
+     ~~~^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Lenovo\OneDrive\Desktop\managment system\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: students.version
+[SQL: SELECT students.student_id AS students_student_id, students.name AS students_name, students.total_marks AS students_total_marks, students.percentage AS students_percentage, students.grade AS students_grade, students.version AS students_version 
+FROM students]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-19 17:59:52,545 - INFO - Request Started | Method=GET Path=/docs
+2026-05-19 17:59:52,546 - INFO - Request Completed | Method=GET Path=/docs Status=200 Time=0.0009s
+2026-05-19 17:59:52,618 - INFO - Request Started | Method=GET Path=/openapi.json
+2026-05-19 17:59:52,636 - INFO - Request Completed | Method=GET Path=/openapi.json Status=200 Time=0.0176s
+2026-05-19 18:00:26,868 - INFO - Request Started | Method=POST Path=/students
+2026-05-19 18:00:26,902 - INFO - Student added: S101
+2026-05-19 18:00:26,903 - INFO - Request Completed | Method=POST Path=/students Status=201 Time=0.0345s
+2026-05-19 18:01:11,084 - INFO - Request Started | Method=POST Path=/students
+2026-05-19 18:01:11,110 - INFO - Student added: S103
+2026-05-19 18:01:11,110 - INFO - Request Completed | Method=POST Path=/students Status=201 Time=0.0268s
+2026-05-19 18:01:32,708 - INFO - Request Started | Method=POST Path=/students
+2026-05-19 18:01:32,735 - INFO - Student added: S102
+2026-05-19 18:01:32,736 - INFO - Request Completed | Method=POST Path=/students Status=201 Time=0.0280s
+2026-05-19 18:01:56,540 - INFO - Request Started | Method=POST Path=/ai/chat
+2026-05-19 18:01:59,971 - INFO - Request Completed | Method=POST Path=/ai/chat Status=200 Time=3.4316s
+2026-05-19 18:02:24,321 - INFO - Request Started | Method=POST Path=/ai/chat
+2026-05-19 18:02:28,555 - INFO - Request Completed | Method=POST Path=/ai/chat Status=200 Time=4.2339s
+2026-05-19 18:02:53,087 - INFO - Request Started | Method=POST Path=/ai/chat
+2026-05-19 18:02:56,087 - INFO - Request Completed | Method=POST Path=/ai/chat Status=200 Time=3.0008s
+2026-05-19 18:03:17,696 - INFO - Request Started | Method=POST Path=/ai/chat
+2026-05-19 18:03:27,656 - INFO - Request Completed | Method=POST Path=/ai/chat Status=200 Time=9.9597s
+2026-05-19 18:53:15,835 - INFO - Request Started | Method=GET Path=/docs
+2026-05-19 18:53:15,836 - INFO - Request Completed | Method=GET Path=/docs Status=200 Time=0.0014s
+2026-05-19 18:53:15,954 - INFO - Request Started | Method=GET Path=/openapi.json
+2026-05-19 18:53:15,971 - INFO - Request Completed | Method=GET Path=/openapi.json Status=200 Time=0.0174s
+2026-05-19 18:55:32,761 - INFO - Request Started | Method=POST Path=/ai/query
+2026-05-19 18:55:34,978 - INFO - Request Completed | Method=POST Path=/ai/query Status=200 Time=2.2166s
+2026-05-19 18:55:50,167 - INFO - Request Started | Method=POST Path=/ai/query
+2026-05-19 18:55:50,169 - INFO - Request Completed | Method=POST Path=/ai/query Status=200 Time=0.0027s
+2026-05-19 18:56:29,858 - INFO - Request Started | Method=GET Path=/students/S101/insights
+2026-05-19 18:56:32,730 - INFO - Request Completed | Method=GET Path=/students/S101/insights Status=200 Time=2.8726s
+2026-05-19 18:58:09,657 - INFO - Request Started | Method=GET Path=/ai/report
+2026-05-19 18:58:14,333 - INFO - Request Completed | Method=GET Path=/ai/report Status=200 Time=4.6762s
+2026-05-20 00:32:34,728 - INFO - Request Started | Method=GET Path=/docs
+2026-05-20 00:32:34,730 - INFO - Request Completed | Method=GET Path=/docs Status=200 Time=0.0012s
+2026-05-20 00:32:34,861 - INFO - Request Started | Method=GET Path=/openapi.json
+2026-05-20 00:32:34,879 - INFO - Request Completed | Method=GET Path=/openapi.json Status=200 Time=0.0179s
+2026-05-20 00:32:54,182 - INFO - Request Started | Method=GET Path=/students/S101/insights
+2026-05-20 00:32:57,883 - INFO - Request Completed | Method=GET Path=/students/S101/insights Status=200 Time=3.7010s
+2026-05-20 00:33:27,844 - INFO - Request Started | Method=GET Path=/ai/report
+2026-05-20 00:33:32,819 - INFO - Request Completed | Method=GET Path=/ai/report Status=200 Time=4.9752s
+2026-05-20 00:44:26,918 - INFO - Request Started | Method=GET Path=/docs
+2026-05-20 00:44:26,923 - INFO - Request Completed | Method=GET Path=/docs Status=200 Time=0.0062s
+2026-05-20 00:44:27,002 - INFO - Request Started | Method=GET Path=/openapi.json
+2026-05-20 00:44:27,043 - INFO - Request Completed | Method=GET Path=/openapi.json Status=200 Time=0.0407s

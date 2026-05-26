@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
-from database import Base
+from app.database import Base
 
 
 class Subject(Base):
@@ -9,4 +9,4 @@ class Subject(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, nullable=False, index=True)
 
-    marks = relationship("StudentMarks", back_populates="subject")
+    marks = relationship("StudentMarks", back_populates="subject", cascade="all, delete")

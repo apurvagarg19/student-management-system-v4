@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import List
 from models.student import Student
 
@@ -15,13 +16,18 @@ class ReportService:
         avg: float,
         ranked_list: List[Student],
         file_path: str = "report.txt"
-    ) -> None:
+    ) -> str:
 
         if not students:
             raise ValueError("No students to export.")
 
         try:
-            with open(file_path, "w") as f:
+            directory = os.path.dirname(file_path)
+            
+            if directory:
+                os.makedirs(directory, exist_ok=True)
+
+            with open(file_path, "w", encoding="utf-8") as f:
                 f.write("Student Report\n")
 
                 for s in summaries:
@@ -34,8 +40,9 @@ class ReportService:
                 for s in ranked_list:
                     f.write(f"{s.name} - {s.percentage:.2f}%\n")
 
-            logger.info("Report exported successfully.")
+            logger.info(f"Report exported successfully: {file_path}")
+            return file_path
 
-        except Exception as e:
+        except Exception:
             logger.exception("Failed to export report")
             raise
