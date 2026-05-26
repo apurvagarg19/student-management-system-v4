@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+.env
+students.db
+student_management.log
+*.pyc
