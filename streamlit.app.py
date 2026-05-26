@@ -95,19 +95,27 @@ section[data-testid="stSidebar"] {
 
 def api_get(endpoint):
 
-    response = requests.get(f"{BASE_URL}{endpoint}")
+    try:
+        response = requests.get(f"{BASE_URL}{endpoint}", timeout=30)
+        response.raise_for_status()
+        return response.json()
 
-    return response.json()
-
+    except Exception as e:
+        st.error(f"API Error: {str(e)}")
+        return {}
 
 def api_post(endpoint, payload):
 
-    response = requests.post(
+    try:
+        response = requests.post(
         f"{BASE_URL}{endpoint}",
-        json=payload
+        json=payload,timeout=30
     )
+        return response
+    except Exception as e:
+        st.error(f"API Error: {str(e)}")
+        return None
 
-    return response
 
 
 # =========================================================
