@@ -19,16 +19,13 @@ BASE_URL = "https://student-management-system-kegr.onrender.com"
 
 st.markdown("""
 <style>
-.main{
-    overflow-x: visible;
-}
 
 .main {
     background-color: #f5f7fb;
 }
 
 .block-container {
-    padding-top: 2rem;
+    padding-top: 5rem;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 2rem;
