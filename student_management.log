@@ -6311,3 +6311,33 @@ ValueError: Student not found
 2026-05-26 16:02:31,848 - INFO - Request Completed | Method=GET Path=/students/01/insights Status=200 Time=3.7746s
 2026-05-26 16:02:36,725 - INFO - Request Started | Method=GET Path=/students/dashboard
 2026-05-26 16:02:36,729 - INFO - Request Completed | Method=GET Path=/students/dashboard Status=200 Time=0.0041s
+2026-05-26 16:35:54,560 - INFO - Request Started | Method=GET Path=/docs
+2026-05-26 16:35:54,563 - INFO - Request Completed | Method=GET Path=/docs Status=200 Time=0.0027s
+2026-05-26 16:35:54,677 - INFO - Request Started | Method=GET Path=/openapi.json
+2026-05-26 16:35:54,695 - INFO - Request Completed | Method=GET Path=/openapi.json Status=200 Time=0.0180s
+2026-05-26 16:36:04,117 - INFO - Request Started | Method=GET Path=/students/dashboard
+2026-05-26 16:36:04,143 - INFO - Request Completed | Method=GET Path=/students/dashboard Status=200 Time=0.0258s
+2026-05-26 16:37:53,813 - INFO - Request Started | Method=GET Path=/docs
+2026-05-26 16:37:53,815 - INFO - Request Completed | Method=GET Path=/docs Status=200 Time=0.0018s
+2026-05-26 16:37:53,912 - INFO - Request Started | Method=GET Path=/openapi.json
+2026-05-26 16:37:53,925 - INFO - Request Completed | Method=GET Path=/openapi.json Status=200 Time=0.0137s
+2026-05-26 16:38:04,535 - INFO - Request Started | Method=GET Path=/students/dashboard
+2026-05-26 16:38:04,576 - INFO - Request Completed | Method=GET Path=/students/dashboard Status=200 Time=0.0413s
+2026-05-26 16:38:10,091 - INFO - Request Started | Method=GET Path=/students
+2026-05-26 16:38:10,105 - INFO - Request Completed | Method=GET Path=/students Status=200 Time=0.0140s
+2026-05-26 16:38:22,363 - INFO - Request Started | Method=GET Path=/students/rank-list
+2026-05-26 16:38:22,385 - INFO - Request Completed | Method=GET Path=/students/rank-list Status=200 Time=0.0223s
+2026-05-26 16:38:33,710 - INFO - Request Started | Method=GET Path=/students
+2026-05-26 16:38:33,722 - INFO - Request Completed | Method=GET Path=/students Status=200 Time=0.0119s
+2026-05-26 16:38:48,260 - INFO - Request Started | Method=GET Path=/students
+2026-05-26 16:38:48,270 - INFO - Request Completed | Method=GET Path=/students Status=200 Time=0.0103s
+2026-05-26 16:38:54,160 - INFO - Request Started | Method=GET Path=/students
+2026-05-26 16:38:54,165 - INFO - Request Completed | Method=GET Path=/students Status=200 Time=0.0049s
+2026-05-26 16:38:59,651 - INFO - Request Started | Method=GET Path=/students
+2026-05-26 16:38:59,656 - INFO - Request Completed | Method=GET Path=/students Status=200 Time=0.0048s
+2026-05-26 16:39:06,017 - INFO - Request Started | Method=GET Path=/students
+2026-05-26 16:39:06,022 - INFO - Request Completed | Method=GET Path=/students Status=200 Time=0.0052s
+2026-05-26 16:39:09,040 - INFO - Request Started | Method=GET Path=/students/rank-list
+2026-05-26 16:39:09,042 - INFO - Request Completed | Method=GET Path=/students/rank-list Status=200 Time=0.0020s
+2026-05-26 16:39:13,041 - INFO - Request Started | Method=GET Path=/students/dashboard
+2026-05-26 16:39:13,045 - INFO - Request Completed | Method=GET Path=/students/dashboard Status=200 Time=0.0032s
