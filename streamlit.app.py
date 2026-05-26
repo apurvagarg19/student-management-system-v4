@@ -28,8 +28,19 @@ st.markdown("""
 }
 
 .block-container {
-    padding-top: 5rem;
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     padding-bottom: 2rem;
+    max-width: 100%! important;
+}
+
+div[data-testid="stHorizontalBlock"] > div {
+    width: 100% !important;
+}
+
+div[data-testid="column"] {
+    width: 100% !important;
 }
 
 
