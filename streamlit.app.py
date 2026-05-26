@@ -20,6 +20,29 @@ BASE_URL = "https://student-management-system-kegr.onrender.com"
 st.markdown("""
 <style>
 
+section[data-testid="stSidebar"] h1 {
+    font-size: 38px !important;
+    font-weight: 800 !important;
+}
+
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] .stRadio label,
+section[data-testid="stSidebar"] p {
+    font-size: 24px !important;
+    font-weight: 600 !important;
+}
+
+.title {
+    font-size: 58px !important;
+    font-weight: 800 !important;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+html, body, [class*="css"]  {
+    font-size: 20px !important;
+}
+
 .main {
     background-color: #f5f7fb;
 }
