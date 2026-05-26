@@ -1,53 +1,65 @@
-# 🎓 Student Management System with AI Integration
+# 🎓 NovaMind Student Management System
 
-An AI-powered Student Management System built using **FastAPI**, **SQLAlchemy**, and **SQLite**.  
-The project provides complete student management functionalities along with analytics, AI-generated insights, caching, logging, rate limiting, and testing support.
+An AI-powered Student Management System built using **FastAPI**, **SQLAlchemy**, **SQLite**, and **Streamlit**.
+
+This project provides complete student record management with:
+- Dashboard analytics
+- AI-powered insights
+- Ranking systems
+- Search & filtering
+- Subject-wise analysis
+- Interactive frontend UI
 
 ---
 
 # 🚀 Features
 
-## 📚 Student Management
-- Add students with subject-wise marks
-- Update student records and marks
-- Delete student records
-- Fetch single student details
-- Fetch all students with pagination
+## ✅ Backend Features (FastAPI)
+
+- Add Students
+- Update Student Records
+- Delete Students
+- View Student Details
+- Pagination Support
+- Search & Filtering
+- Grade Calculation
+- Rank List Generation
+- Subject-wise Analytics
+- Dashboard Analytics
+- Global Exception Handling
+- Middleware Logging
+- Rate Limiting
+- Caching Support
+- Audit Logging
+- Unit Testing with Pytest
+- AI-powered Insights
 
 ---
 
-## 📊 Analytics
-- Get class topper
-- Generate rank list
-- Calculate class average
-- Dashboard statistics
-- Subject-wise analysis
-- Pass/Fail filtering
+## 🎨 Frontend Features (Streamlit)
+
+- Interactive Dashboard
+- Add Student UI
+- View Student Records
+- Search & Filter Students
+- Rank Leaderboard
+- AI Insights Interface
+- Responsive UI
+- Custom CSS Styling
 
 ---
 
-## 🤖 AI Features
-- AI-generated student insights
-- AI-powered academic chatbot
-- AI-generated class performance report
-- Restricted academic query handling
-- Prompt validation and response formatting
+# 🤖 AI Features
 
----
+Integrated AI analytics using external AI API.
 
-## ⚡ Performance & Security
-- In-memory caching
-- Request logging middleware
-- Rate limiting middleware
-- Global exception handling
-- Optimistic locking using versioning
-
----
-
-## 🧪 Testing
-- Pytest unit testing
-- In-memory SQLite testing
-- Audit log validation
+Supports:
+- Student Performance Summary
+- Strength Analysis
+- Weakness Detection
+- Improvement Suggestions
+- AI Chat Queries
+- AI-generated Reports
 
 ---
 
@@ -55,90 +67,103 @@ The project provides complete student management functionalities along with anal
 
 ## Backend
 - FastAPI
-- Python
 - SQLAlchemy
 - SQLite
+- Pydantic
+- Uvicorn
+
+## Frontend
+- Streamlit
+- Pandas
 
 ## AI Integration
-- ASI1 AI API
+- Requests API
+- External AI Service
 
 ## Testing
 - Pytest
 
 ---
 
-# 📁 Project Structure
+# 📂 Project Structure
 
 ```bash
 student-management-system/
 │
 ├── app/
 │   ├── api.py
-│   └── database.py
+│   ├── database.py
 │
 ├── middleware/
 │   ├── logging_middleware.py
-│   └── rate_limit.py
+│   ├── rate_limit.py
 │
 ├── models/
 │   ├── student.py
-│   ├── student_marks.py
 │   ├── subject.py
-│   └── audit_log.py
+│   ├── student_marks.py
+│   ├── audit_log.py
 │
 ├── schemas/
-│   └── student_schema.py
+│   ├── student_schema.py
 │
 ├── services/
+│   ├── student_service.py
 │   ├── ai_service.py
 │   ├── report_service.py
-│   └── student_service.py
+│
+├── tests/
+│   ├── test_student_service.py
 │
 ├── utils/
 │   ├── cache.py
-│   └── response.py
+│   ├── response.py
 │
-├── tests/
-│   └── test_student_service.py
-│
-├── students.db
-├── student_management.log
-├── .env
+├── streamlit_app.py
 ├── init_db.py
+├── requirements.txt
 ├── pytest.ini
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ---
 
-# ⚙️ Installation
+# ⚙️ Installation Setup
 
 ## 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/apurvagarg19/student-management-system-v4.git
-cd student-management-system-v4
+git clone https://github.com/your-username/student-management-system.git
+```
+
+```bash
+cd student-management-system
 ```
 
 ---
 
 ## 2️⃣ Create Virtual Environment
 
+### Windows
+
 ```bash
 python -m venv venv
 ```
 
----
-
-## 3️⃣ Activate Virtual Environment
-
-### Windows
+Activate:
 
 ```bash
-venv\Scripts\activate
+.\venv\Scripts\Activate.ps1
 ```
 
 ### Linux / Mac
+
+```bash
+python3 -m venv venv
+```
+
+Activate:
 
 ```bash
 source venv/bin/activate
@@ -146,7 +171,7 @@ source venv/bin/activate
 
 ---
 
-## 4️⃣ Install Dependencies
+## 3️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -154,132 +179,95 @@ pip install -r requirements.txt
 
 ---
 
-# 🔑 Environment Variables
+# 🔐 Environment Variables
 
 Create a `.env` file in the root directory.
 
+Example:
+
 ```env
 ASI1_API_KEY=your_api_key_here
-DATABASE_URL=sqlite:///./students.db
 ```
 
 ---
 
 # 🗄️ Initialize Database
 
+Run:
+
 ```bash
 python init_db.py
 ```
 
+This creates:
+- students table
+- subjects table
+- student_marks table
+- audit_logs table
+
 ---
 
-# ▶️ Run Application
+# ▶️ Run Backend Server
 
 ```bash
 uvicorn app.api:app --reload
 ```
 
-Application will run at:
+Backend runs on:
 
-```bash
+```text
 http://127.0.0.1:8000
 ```
 
-Swagger Documentation:
+Swagger API Documentation:
 
-```bash
+```text
 http://127.0.0.1:8000/docs
 ```
 
 ---
 
-# 📌 API Endpoints
+# 🎨 Run Streamlit Frontend
 
-## 👨‍🎓 Student APIs
+```bash
+streamlit run streamlit_app.py
+```
 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/students` | Add student |
-| GET | `/students` | Get all students |
-| GET | `/students/{student_id}` | Get student by ID |
-| PUT | `/students/{student_id}` | Update student |
-| DELETE | `/students/{student_id}` | Delete student |
+Frontend runs on:
 
----
-
-## 📈 Analytics APIs
-
-| Method | Endpoint |
-|---|---|
-| GET | `/students/topper` |
-| GET | `/students/average` |
-| GET | `/students/rank-list` |
-| GET | `/students/dashboard` |
-| GET | `/students/subject-analysis` |
-
----
-
-## 🤖 AI APIs
-
-| Method | Endpoint |
-|---|---|
-| GET | `/students/{student_id}/insights` |
-| POST | `/ai/query` |
-| POST | `/ai/chat` |
-| GET | `/ai/report` |
-
----
-
-# 📥 Sample Request
-
-## Add Student
-
-```json
-{
-  "student_id": "S101",
-  "name": "Apurva",
-  "marks": {
-    "math": 90,
-    "science": 85,
-    "english": 88
-  }
-}
+```text
+http://localhost:8501
 ```
 
 ---
 
-# 🤖 Sample AI Response
+# 📊 Dashboard Analytics
 
-```json
-{
-  "summary": "The student is performing consistently well academically.",
-  "strengths": [
-    "Strong analytical skills",
-    "Excellent performance in Mathematics"
-  ],
-  "weaknesses": [
-    "Needs improvement in Science"
-  ],
-  "suggestions": [
-    "Practice more numerical problems",
-    "Improve conceptual understanding"
-  ]
-}
-```
+The dashboard provides:
+
+- Total Students
+- Pass Percentage
+- Average Percentage
+- Grade Distribution
+- Top Performer
 
 ---
 
-# ✨ Recent Enhancements
+# 🔍 Search & Filtering
 
-- Added AI-powered academic chatbot
-- Implemented AI-generated student insights
-- Added AI class performance report generation
-- Implemented caching for AI responses
-- Added request logging middleware
-- Added rate limiting middleware
-- Improved API response handling
-- Added optimistic locking using version control
-- Added pytest unit testing support
+Supports:
+- Search by Name
+- Grade Filtering
+- Percentage Filtering
+- Failed Student Filtering
+
+---
+
+# 🏆 Ranking System
+
+Students are ranked based on:
+- Percentage
+- Alphabetical order (tie-breaker)
 
 ---
 
@@ -291,26 +279,68 @@ pytest
 
 ---
 
+# 📌 API Endpoints
+
+## Student APIs
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/students` | Add student |
+| GET | `/students` | Get all students |
+| GET | `/students/{student_id}` | Get single student |
+| PUT | `/students/{student_id}` | Update student |
+| DELETE | `/students/{student_id}` | Delete student |
+
+---
+
+## Analytics APIs
+
+| Method | Endpoint |
+|--------|----------|
+| GET | `/students/topper` |
+| GET | `/students/average` |
+| GET | `/students/rank-list` |
+| GET | `/students/dashboard` |
+| GET | `/students/subject-analysis` |
+
+---
+
+## AI APIs
+
+| Method | Endpoint |
+|--------|----------|
+| GET | `/students/{student_id}/insights` |
+| POST | `/ai/query` |
+| POST | `/ai/chat` |
+| GET | `/ai/report` |
+
+---
+
 # 🧠 Key Concepts Used
 
-- FastAPI Dependency Injection
-- SQLAlchemy ORM
-- REST API Development
-- Middleware Handling
-- AI Prompt Engineering
-- Pagination & Filtering
-- Optimistic Locking
-- Caching Mechanism
+- REST API Design
+- ORM Relationships
+- Middleware
+- Dependency Injection
 - Exception Handling
+- Pagination
+- Caching
+- Rate Limiting
+- AI Integration
 - Unit Testing
+- Analytics Processing
+
+---
+
+# 🔒 Security Features
+
+- Request Validation
+- Input Validation
+- Rate Limiting
+- Exception Handling
 
 ---
 
 # 👨‍💻 Author
 
-**Apurva Garg**
-
-GitHub:  
-https://github.com/apurvagarg19
-
----
+### Apurva Garg

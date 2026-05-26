@@ -2,7 +2,9 @@ import streamlit as st
 import requests
 import pandas as pd
 
-# ---------------- CONFIG ----------------
+# =========================================================
+# PAGE CONFIG
+# =========================================================
 
 st.set_page_config(
     page_title="NovaMind Student System",
@@ -12,7 +14,9 @@ st.set_page_config(
 
 BASE_URL = "http://127.0.0.1:8000"
 
-# ---------------- CUSTOM CSS ----------------
+# =========================================================
+# CSS
+# =========================================================
 
 st.markdown("""
 <style>
@@ -21,13 +25,54 @@ st.markdown("""
     background-color: #f5f7fb;
 }
 
+.block-container {
+    padding-top: 2rem;
+}
+
+section[data-testid="stSidebar"] {
+    background-color: white;
+    border-right: 1px solid #ddd;
+}
+
+.card {
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    padding: 25px;
+    border-radius: 18px;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.metric-value {
+    font-size: 38px;
+    font-weight: bold;
+}
+
+.metric-label {
+    font-size: 16px;
+}
+
+.student-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
+}
+
+.subject-box {
+    background: #EEF2FF;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
 .stButton>button {
     background-color: #4F46E5;
     color: white;
     border-radius: 10px;
-    height: 3em;
-    width: 100%;
     border: none;
+    height: 3em;
     font-weight: bold;
 }
 
@@ -36,466 +81,395 @@ st.markdown("""
     color: white;
 }
 
-.card {
-    padding: 20px;
-    border-radius: 15px;
-    background: white;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
-    margin-bottom: 20px;
-}
-
-.metric-card {
-    background: linear-gradient(135deg,#6366F1,#8B5CF6);
-    padding: 20px;
-    border-radius: 15px;
-    color: white;
-    text-align: center;
-}
-
 .title {
-    font-size: 40px;
+    font-size: 42px;
     font-weight: bold;
-    color: #111827;
-}
-
-.subtitle {
-    color: #6B7280;
-    font-size: 18px;
+    color: #1F2937;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- TITLE ----------------
+# =========================================================
+# API HELPER
+# =========================================================
 
-st.markdown(
-    """
-    <div class='title'>🎓 NovaMind Student Management</div>
-    <div class='subtitle'>
-    AI Powered Student Analytics Dashboard
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+def api_get(endpoint):
 
-st.write("")
+    response = requests.get(f"{BASE_URL}{endpoint}")
 
-# ---------------- SIDEBAR ----------------
+    return response.json()
+
+
+def api_post(endpoint, payload):
+
+    response = requests.post(
+        f"{BASE_URL}{endpoint}",
+        json=payload
+    )
+
+    return response
+
+
+# =========================================================
+# SIDEBAR
+# =========================================================
+
+st.sidebar.title("📚 Navigation")
 
 menu = st.sidebar.radio(
-    "📚 Navigation",
+    "Go To",
     [
         "🏠 Dashboard",
         "➕ Add Student",
-        "📋 View Students",
-        "🔍 Search / Filter",
+        "👨‍🎓 View Students",
+        "🔍 Search Students",
         "🏆 Rank List",
-        "🤖 AI Insights"
+        "🧠 AI Insights"
     ]
 )
 
-# ---------------- DASHBOARD ----------------
+# =========================================================
+# DASHBOARD
+# =========================================================
 
 if menu == "🏠 Dashboard":
 
-    st.subheader("📊 Dashboard Overview")
+    st.markdown(
+        '<p class="title">📊 Dashboard</p>',
+        unsafe_allow_html=True
+    )
 
     try:
 
-        response = requests.get(
-            f"{BASE_URL}/students/dashboard"
-        )
+        result = api_get("/students/dashboard")
 
-        data = response.json()
+        dashboard = result.get("data", {})
 
-        if data["success"]:
+        total_students = dashboard.get("total_students", 0)
+        pass_percentage = dashboard.get("pass_percentage", 0)
+        average_percentage = dashboard.get("average_percentage", 0)
+        topper = dashboard.get("topper", "N/A")
+        grades = dashboard.get("grades", {})
 
-            dashboard = data["data"]
+        col1, col2, col3, col4 = st.columns(4)
 
-            col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.markdown(f"""
+            <div class="card">
+                <div class="metric-value">{total_students}</div>
+                <div class="metric-label">Students</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-            with col1:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <h2>👨‍🎓</h2>
-                    <h1>{dashboard['total_students']}</h1>
-                    <p>Total Students</p>
-                </div>
-                """, unsafe_allow_html=True)
+        with col2:
+            st.markdown(f"""
+            <div class="card">
+                <div class="metric-value">{pass_percentage}%</div>
+                <div class="metric-label">Pass Rate</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-            with col2:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <h2>📈</h2>
-                    <h1>{dashboard['average_percentage']:.2f}%</h1>
-                    <p>Average Percentage</p>
-                </div>
-                """, unsafe_allow_html=True)
+        with col3:
+            st.markdown(f"""
+            <div class="card">
+                <div class="metric-value">{average_percentage}%</div>
+                <div class="metric-label">Average</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-            with col3:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <h2>✅</h2>
-                    <h1>{dashboard['pass_percentage']:.2f}%</h1>
-                    <p>Pass Percentage</p>
-                </div>
-                """, unsafe_allow_html=True)
+        with col4:
+            st.markdown(f"""
+            <div class="card">
+                <div class="metric-value">🏆</div>
+                <div class="metric-label">{topper}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-            with col4:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <h2>🏆</h2>
-                    <h1>{dashboard['topper']}</h1>
-                    <p>Topper</p>
-                </div>
-                """, unsafe_allow_html=True)
+        st.subheader("📈 Grade Distribution")
+
+        grade_df = pd.DataFrame({
+            "Grade": list(grades.keys()),
+            "Count": list(grades.values())
+        })
+
+        st.bar_chart(grade_df.set_index("Grade"))
 
     except Exception as e:
         st.error(str(e))
 
-# ---------------- ADD STUDENT ----------------
+# =========================================================
+# ADD STUDENT
+# =========================================================
 
 elif menu == "➕ Add Student":
 
-    st.subheader("➕ Add New Student")
+    st.markdown(
+        '<p class="title">➕ Add Student</p>',
+        unsafe_allow_html=True
+    )
 
-    student_id = st.text_input("🆔 Student ID").upper()
-    name = st.text_input("👤 Student Name")
+    student_id = st.text_input("Student ID")
+    student_name = st.text_input("Student Name")
 
-    st.markdown("### 📚 Add Subjects & Marks")
+    st.subheader("📚 Subjects")
 
-    # Session state for dynamic subjects
-    if "subjects" not in st.session_state:
-        st.session_state.subjects = []
+    count = st.number_input(
+        "Number of Subjects",
+        min_value=1,
+        max_value=10,
+        value=3
+    )
 
-    col1, col2 = st.columns([3, 1])
+    marks_dict = {}
 
-    with col1:
-        subject_name = st.text_input(
-            "Subject Name",
-            key="subject_input"
+    for i in range(count):
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            subject = st.text_input(
+                f"Subject {i+1}",
+                key=f"sub{i}"
+            )
+
+        with col2:
+            marks = st.number_input(
+                f"Marks {i+1}",
+                min_value=0,
+                max_value=100,
+                key=f"marks{i}"
+            )
+
+        if subject:
+            marks_dict[subject] = marks
+
+    if st.button("Create Student"):
+
+        payload = {
+            "student_id": student_id,
+            "name": student_name,
+            "marks": marks_dict
+        }
+
+        response = api_post(
+            "/students",
+            payload
         )
 
-    with col2:
-        marks = st.number_input(
-            "Marks",
-            0,
-            100,
-            0,
-            key="marks_input"
-        )
+        result = response.json()
 
-    # Add subject button
-    if st.button("➕ Add Subject"):
-
-        if subject_name.strip() == "":
-            st.warning("Enter subject name")
-
+        if response.status_code in [200, 201]:
+            st.success("✅ Student Added Successfully")
         else:
+            st.error(result.get("message"))
 
-            st.session_state.subjects.append({
-                "subject": subject_name,
-                "marks": marks
-            })
+# =========================================================
+# VIEW STUDENTS
+# =========================================================
 
-            st.success(
-                f"{subject_name} added successfully"
-            )
+elif menu == "👨‍🎓 View Students":
 
-    st.write("")
-
-    # Show added subjects
-    if st.session_state.subjects:
-
-        st.markdown("### 📝 Added Subjects")
-
-        for i, item in enumerate(
-            st.session_state.subjects
-        ):
-
-            col1, col2, col3 = st.columns([4, 2, 1])
-
-            with col1:
-                st.info(f"📘 {item['subject']}")
-
-            with col2:
-                st.success(f"Marks: {item['marks']}")
-
-            with col3:
-
-                if st.button(
-                    "❌",
-                    key=f"delete_{i}"
-                ):
-
-                    st.session_state.subjects.pop(i)
-                    st.rerun()
-
-    st.write("")
-
-    # Final submit
-    if st.button("🚀 Create Student"):
-
-        if not student_id or not name:
-
-            st.error(
-                "Student ID and Name required"
-            )
-
-        elif not st.session_state.subjects:
-
-            st.error(
-                "Add at least one subject"
-            )
-
-        else:
-
-            marks_dict = {}
-
-            for item in st.session_state.subjects:
-
-                marks_dict[item["subject"]] = (
-                    item["marks"]
-                )
-
-            payload = {
-                "student_id": student_id,
-                "name": name,
-                "marks": marks_dict
-            }
-
-            try:
-
-                response = requests.post(
-                    f"{BASE_URL}/students",
-                    json=payload
-                )
-
-                data = response.json()
-
-                if data["success"]:
-
-                    st.success(
-                        "✅ Student Added Successfully"
-                    )
-
-                    st.balloons()
-
-                    # clear subjects
-                    st.session_state.subjects = []
-
-                else:
-                    st.error(data["message"])
-
-            except Exception as e:
-                st.error(str(e))
-
-# ---------------- VIEW STUDENTS ----------------
-
-elif menu == "📋 View Students":
-
-    st.subheader("📋 Student Records")
+    st.markdown(
+        '<p class="title">👨‍🎓 Student Records</p>',
+        unsafe_allow_html=True
+    )
 
     try:
 
-        response = requests.get(
-            f"{BASE_URL}/students"
-        )
+        result = api_get("/students")
 
-        data = response.json()
+        students = result.get("data", {}).get("students", [])
 
-        if data["success"]:
+        if not students:
+            st.warning("No students found")
 
-            students = data["data"]["students"]
+        for student in students:
 
-            if students:
+            st.markdown(
+                '<div class="student-box">',
+                unsafe_allow_html=True
+            )
 
-                df = pd.DataFrame([
-                    {
-                        "ID": s["student_id"],
-                        "Name": s["name"],
-                        "Percentage": s["percentage"],
-                        "Grade": s["grade"]
-                    }
-                    for s in students
-                ])
+            st.subheader(student["name"])
 
-                st.dataframe(
-                    df,
-                    use_container_width=True
+            st.write(f"🆔 ID: {student['student_id']}")
+            st.write(f"📊 Percentage: {student['percentage']}%")
+            st.write(f"🏆 Grade: {student['grade']}")
+
+            st.write("### Subjects")
+
+            for subject in student["marks"]:
+
+                st.markdown(f"""
+                <div class="subject-box">
+                    {subject['subject']} : {subject['marks']}
+                </div>
+                """, unsafe_allow_html=True)
+
+            if st.button(
+                f"Delete {student['student_id']}",
+                key=student['student_id']
+            ):
+
+                requests.delete(
+                    f"{BASE_URL}/students/{student['student_id']}"
                 )
 
-            else:
-                st.warning("No students found")
+                st.success("Student Deleted")
+                st.rerun()
+
+            st.markdown("</div>", unsafe_allow_html=True)
 
     except Exception as e:
         st.error(str(e))
 
-# ---------------- SEARCH ----------------
+# =========================================================
+# SEARCH
+# =========================================================
 
-elif menu == "🔍 Search / Filter":
+elif menu == "🔍 Search Students":
 
-    st.subheader("🔍 Search Students")
+    st.markdown(
+        '<p class="title">🔍 Search Students</p>',
+        unsafe_allow_html=True
+    )
 
-    col1, col2 = st.columns(2)
+    search_name = st.text_input("Search by Name")
 
-    with col1:
-        name = st.text_input("Search by Name")
+    grade = st.selectbox(
+        "Grade",
+        ["All", "A", "B", "C", "D", "F"]
+    )
 
-    with col2:
-        grade = st.selectbox(
-            "Select Grade",
-            ["", "A", "B", "C", "D", "F"]
-        )
-
-    min_percentage = st.slider(
+    minimum = st.slider(
         "Minimum Percentage",
         0,
         100,
         0
     )
 
-    if st.button("🔎 Search"):
+    if st.button("Search"):
 
         params = {
-            "name": name,
-            "grade": grade if grade else None,
-            "min_percentage": min_percentage
+            "name": search_name,
+            "min_percentage": minimum
         }
 
-        try:
-
-            response = requests.get(
-                f"{BASE_URL}/students",
-                params=params
-            )
-
-            data = response.json()
-
-            if data["success"]:
-
-                students = data["data"]["students"]
-
-                if students:
-
-                    df = pd.DataFrame([
-                        {
-                            "ID": s["student_id"],
-                            "Name": s["name"],
-                            "Percentage": s["percentage"],
-                            "Grade": s["grade"]
-                        }
-                        for s in students
-                    ])
-
-                    st.dataframe(
-                        df,
-                        use_container_width=True
-                    )
-
-                else:
-                    st.warning("No matching students found")
-
-        except Exception as e:
-            st.error(str(e))
-
-# ---------------- RANK LIST ----------------
-
-elif menu == "🏆 Rank List":
-
-    st.subheader("🏆 Student Leaderboard")
-
-    try:
+        if grade != "All":
+            params["grade"] = grade
 
         response = requests.get(
-            f"{BASE_URL}/students/rank-list"
+            f"{BASE_URL}/students",
+            params=params
         )
 
-        data = response.json()
+        result = response.json()
 
-        if data["success"]:
+        students = result.get("data", {}).get("students", [])
 
-            students = data["data"]
+        if not students:
+            st.warning("No students found")
 
-            rank_data = []
+        else:
 
-            for i, s in enumerate(students, start=1):
-
-                medal = "🥇"
-
-                if i == 2:
-                    medal = "🥈"
-
-                elif i == 3:
-                    medal = "🥉"
-
-                rank_data.append({
-                    "Rank": f"{medal} {i}",
+            df = pd.DataFrame([
+                {
+                    "Student ID": s["student_id"],
                     "Name": s["name"],
-                    "Percentage": f"{s['percentage']:.2f}%",
+                    "Percentage": s["percentage"],
                     "Grade": s["grade"]
-                })
-
-            df = pd.DataFrame(rank_data)
+                }
+                for s in students
+            ])
 
             st.dataframe(
                 df,
                 use_container_width=True
             )
 
+# =========================================================
+# RANK LIST
+# =========================================================
+
+elif menu == "🏆 Rank List":
+
+    st.markdown(
+        '<p class="title">🏆 Rank List</p>',
+        unsafe_allow_html=True
+    )
+
+    try:
+
+        result = api_get("/students/rank-list")
+
+        students = result.get("data", [])
+
+        df = pd.DataFrame([
+            {
+                "Rank": i + 1,
+                "Student ID": s["student_id"],
+                "Name": s["name"],
+                "Percentage": s["percentage"],
+                "Grade": s["grade"]
+            }
+            for i, s in enumerate(students)
+        ])
+
+        st.dataframe(
+            df,
+            use_container_width=True
+        )
+
     except Exception as e:
         st.error(str(e))
 
-# ---------------- AI INSIGHTS ----------------
+# =========================================================
+# AI INSIGHTS
+# =========================================================
 
-elif menu == "🤖 AI Insights":
+elif menu == "🧠 AI Insights":
 
-    st.subheader("🤖 AI Performance Insights")
-
-    student_id = st.text_input(
-        "Enter Student ID"
+    st.markdown(
+        '<p class="title">🧠 AI Insights</p>',
+        unsafe_allow_html=True
     )
 
-    if st.button("✨ Generate AI Insights"):
+    student_id = st.text_input("Enter Student ID")
+
+    if st.button("Generate AI Insights"):
 
         try:
 
-            response = requests.get(
-                f"{BASE_URL}/students/{student_id}/insights"
+            result = api_get(
+                f"/students/{student_id}/insights"
             )
 
-            data = response.json()
+            analysis = result.get("data", {})
 
-            if data["success"]:
+            st.subheader("📝 Summary")
 
-                insights = data["data"]
+            st.info(
+                analysis.get(
+                    "summary",
+                    "No summary available"
+                )
+            )
 
-                st.markdown("""
-                <div class='card'>
-                """, unsafe_allow_html=True)
+            st.subheader("💪 Strengths")
 
-                st.subheader("📄 Summary")
-                st.write(insights.get("summary"))
+            for item in analysis.get("strengths", []):
+                st.success(item)
 
-                st.subheader("💪 Strengths")
+            st.subheader("⚠ Weaknesses")
 
-                for item in insights.get("strengths", []):
-                    st.success(item)
+            for item in analysis.get("weaknesses", []):
+                st.warning(item)
 
-                st.subheader("⚠ Weaknesses")
+            st.subheader("📌 Suggestions")
 
-                for item in insights.get("weaknesses", []):
-                    st.warning(item)
-
-                st.subheader("💡 Suggestions")
-
-                for item in insights.get("suggestions", []):
-                    st.info(item)
-
-                st.markdown("</div>", unsafe_allow_html=True)
-
-            else:
-                st.error(data["message"])
+            for item in analysis.get("suggestions", []):
+                st.write("✅", item)
 
         except Exception as e:
             st.error(str(e))
