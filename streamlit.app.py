@@ -48,7 +48,7 @@ section[data-testid="stSidebar"] {
 
 .card {
     background: linear-gradient(135deg, #4F46E5, #7C3AED);
-    padding: 25px;
+    padding: 35px;
     border-radius: 18px;
     color: white;
     text-align: center;
@@ -56,12 +56,13 @@ section[data-testid="stSidebar"] {
 }
 
 .metric-value {
-    font-size: 38px;
-    font-weight: bold;
+    font-size: 52px;
+    font-weight: 800;
 }
 
 .metric-label {
-    font-size: 16px;
+    font-size: 20px;
+    margin-top: 8px;
 }
 
 .student-box {
@@ -94,9 +95,11 @@ section[data-testid="stSidebar"] {
 }
 
 .title {
-    font-size: 42px;
-    font-weight: bold;
-    color: #1F2937;
+    font-size: 56px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 1rem;
+    line-height: 1.2;
 }
 
 </style>
