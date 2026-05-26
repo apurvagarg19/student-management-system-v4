@@ -31,10 +31,3 @@ SessionLocal = sessionmaker(
 )
 
 Base = declarative_base()
-from models import(student,
-                   subject,
-                   student_marks,
-                   audit_log )
-
-# AUTO CREATE TABLES
-Base.metadata.create_all(bind=engine)
