@@ -116,8 +116,8 @@ student-management-system/
 ## 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/apurvagarg19/student-management-system.git
-cd student-management-system
+git clone https://github.com/apurvagarg19/student-management-system-v4.git
+cd student-management-system-v4
 ```
 
 ---
@@ -269,6 +269,20 @@ http://127.0.0.1:8000/docs
 
 ---
 
+# ✨ Recent Enhancements
+
+- Added AI-powered academic chatbot
+- Implemented AI-generated student insights
+- Added AI class performance report generation
+- Implemented caching for AI responses
+- Added request logging middleware
+- Added rate limiting middleware
+- Improved API response handling
+- Added optimistic locking using version control
+- Added pytest unit testing support
+
+---
+
 # 🧪 Run Tests
 
 ```bash
@@ -292,10 +306,11 @@ pytest
 
 ---
 
-
 # 👨‍💻 Author
 
-**Apurva Garg** 
+**Apurva Garg**
+
+GitHub:  
 https://github.com/apurvagarg19
 
 ---
