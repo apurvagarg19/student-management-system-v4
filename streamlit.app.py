@@ -299,12 +299,15 @@ elif menu == "➕ Add Student":
             payload
         )
 
-        result = response.json()
+        if response is not None:
+            result = response.json()
 
-        if response.status_code in [200, 201]:
-            st.success("✅ Student Added Successfully")
-        else:
-            st.error(result.get("message"))
+            if response.status_code in [200, 201]:
+                st.success("✅ Student Added Successfully")
+            else:
+                st.error(result.get("message"))
+        else: 
+            st.error("Failed to connect to the API")
 
 # =========================================================
 # VIEW STUDENTS
@@ -487,31 +490,36 @@ elif menu == "🧠 AI Insights":
                 f"/students/{student_id}/insights"
             )
 
-            analysis = result.get("data", {})
+            analysis = result.get("data")
+            if analysis is None:
+                st.error(
+                    result.get("message", "No insights available for this student")
+                )
+                
+            else:
+                st.subheader("📝 Summary")
 
-            st.subheader("📝 Summary")
-
-            st.info(
-                analysis.get(
-                    "summary",
-                    "No summary available"
+                st.info(
+                    analysis.get(
+                        "summary",
+                        "No summary available"
                 )
             )
 
-            st.subheader("💪 Strengths")
+                st.subheader("💪 Strengths")
 
-            for item in analysis.get("strengths", []):
-                st.success(item)
+                for item in analysis.get("strengths", []):
+                    st.success(item)
 
-            st.subheader("⚠ Weaknesses")
+                st.subheader("⚠ Weaknesses")
 
-            for item in analysis.get("weaknesses", []):
-                st.warning(item)
+                for item in analysis.get("weaknesses", []):
+                    st.warning(item)
 
-            st.subheader("📌 Suggestions")
+                st.subheader("📌 Suggestions")
 
-            for item in analysis.get("suggestions", []):
-                st.write("✅", item)
+                for item in analysis.get("suggestions", []):
+                    st.write("✅", item)
 
         except Exception as e:
             st.error(str(e))
